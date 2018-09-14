@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhw.blog.dao.LabelDao">
+    <sql id="BASE_TABLE">
+    t_lable
+    </sql>
+
+    <sql id="BASE_COLUMN">
+    labelId,labelName,sortNo
+    </sql>
+
+    <insert id="insert" parameterType="com.zhw.blog.model.Label">
+        INSERT INTO
+        <include refid="BASE_TABLE"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            labelId,labelName,sortNo
+        </trim>
+        <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+            #{labelName, jdbcType=VARCHAR},#{sortNo, jdbcType=INTEGER}
+        </trim>
+    </insert>
+
+    <select id="selectLabels" resultType="com.zhw.blog.model.Label">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM
+        <include refid="BASE_TABLE"/>
+    </select>
+</mapper>

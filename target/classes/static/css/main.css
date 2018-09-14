@@ -1,0 +1,59 @@
+div .left {
+    background-color: #e8e8e8;
+    opacity: 0.5;
+}
+
+div .date {
+    font-size: 20px;
+    text-align: center;
+    /*background-color: #e8e8e8;*/
+    /*opacity: 0.5;*/
+    border-radius: 15px 15px 15px 15px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+div .time {
+    font-size: 80px;
+    text-align: center;
+    /*background-color: #e8e8e8;*/
+    /*opacity: 0.5;*/
+    border-radius: 15px 15px 15px 15px;
+}
+
+div .search {
+    margin-top: 250px;
+}
+
+div .l-context {
+    margin-top: 80px;
+    background-color: #e8e8e8;
+    opacity: 0.8;
+    margin-left: -15px;
+}
+
+div .d-label {
+    height: 30px;
+    font-size: 20px;
+    width: 80px;
+    margin-left: 5px;
+    border: 1px solid #1E9FFF;
+    text-align: center;
+}
+
+div .d-website {
+    height: 30px;
+    font-size: 20px;
+    width: 80px;
+    margin-left: 5px;
+    border: 1px solid #5FB878;
+    text-align: center;
+    float: left;
+    cursor: pointer;
+}
+
+.setting {
+    float: right;
+    text-align: right;
+    margin-right: -20px;
+}

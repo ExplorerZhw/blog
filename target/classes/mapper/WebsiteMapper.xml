@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhw.blog.dao.WebsiteDao">
+    <sql id="BASE_TABLE">
+    t_website
+    </sql>
+
+    <sql id="BASE_COLUMN">
+    websiteId,websiteName,websiteUrl,sortNo,labelId
+    </sql>
+
+    <insert id="insert" parameterType="com.zhw.blog.model.Website">
+        INSERT INTO
+        <include refid="BASE_TABLE"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            websiteName,websiteUrl,
+            <if test="sortNo != null">
+                sortNo,
+            </if>
+            <if test="labelId != null">
+                labelId,
+            </if>
+        </trim>
+        <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+            #{websiteName, jdbcType=VARCHAR},#{websiteUrl, jdbcType=VARCHAR},
+            <if test="sortNo != null">
+                #{sortNo, jdbcType=INTEGER},
+            </if>
+            <if test="labelId != null">
+                #{labelId, jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectWebsites" resultType="com.zhw.blog.model.Website">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM
+        <include refid="BASE_TABLE"/>
+    </select>
+
+    <select id="getByWebsiteId" resultType="com.zhw.blog.model.Website">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM
+        <include refid="BASE_TABLE"/>
+        where websiteId = #{websiteId, jdbcType=VARCHAR}
+    </select>
+</mapper>
