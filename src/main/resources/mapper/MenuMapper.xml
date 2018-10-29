@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhw.blog.dao.MenuDao">
+    <sql id="BASE_TABLE">
+    t_menu
+    </sql>
+
+    <sql id="BASE_COLUMN">
+    menuId,menuName,fId,systemId,linkPath,sortNo
+    </sql>
+
+    <insert id="insert" parameterType="com.zhw.blog.model.Menu">
+        INSERT INTO
+        <include refid="BASE_TABLE"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            menuId,menuName,fId,systemId,linkPath,sortNo
+        </trim>
+        <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+            #{menuId, jdbcType=VARCHAR},
+            #{menuName, jdbcType=VARCHAR},
+            #{fId, jdbcType=VARCHAR},
+            #{systemId, jdbcType=VARCHAR},
+            #{linkPath, jdbcType=VARCHAR},
+            #{sortNo, jdbcType=NUMERIC},
+        </trim>
+    </insert>
+
+    <select id="listData" parameterType="com.zhw.blog.model.Menu" resultType="com.zhw.blog.model.Menu">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM
+        <include refid="BASE_TABLE"/>
+        where 1=1
+        <if test="menuId != null">
+            and menuId=#{menuId}
+        </if>
+        <if test="menuName != null">
+            and menuName like concat('%',#{menuName},'%')
+        </if>
+        <if test="fId != null">
+            and fId=#{fId}
+        </if>
+        <if test="systemId != null">
+            and systemId=#{systemId}
+        </if>
+        order by sortNo;
+    </select>
+
+    <!-- 修改 -->
+    <update id="update" parameterType="com.zhw.blog.model.Menu">
+        update
+        <include refid="BASE_TABLE"/>
+        <set>
+            <if test="menuName != null">
+                menuName=#{menuName},
+            </if>
+            <if test="fId != null">
+                fId=#{fId},
+            </if>
+            <if test="systemId != null">
+                systemId=#{systemId},
+            </if>
+            <if test="linkPath != null">
+                linkPath=#{linkPath},
+            </if>
+            <if test="sortNo != null">
+                sortNo=#{sortNo},
+            </if>
+        </set>
+        where menuId=#{menuId}
+    </update>
+
+    <delete id="deleteById" parameterType="String">
+        delete from
+        <include refid="BASE_TABLE"/>
+        where menuId=#{menuId}
+    </delete>
+</mapper>

@@ -40,7 +40,12 @@ public class WebsiteServiceImpl implements WebsiteService {
     }
 
     @Override
-    public Website getOne(String wsid) {
-        return  websiteDao.getByWebsiteId(wsid);
+    public Website getOne(String websiteId) {
+        return websiteDao.getByWebsiteId(websiteId);
+    }
+
+    @Override
+    public void update(Website website) {
+        websiteDao.update(website);
     }
 }

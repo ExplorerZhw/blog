@@ -52,8 +52,52 @@ div .d-website {
     cursor: pointer;
 }
 
+div .d-website-edit {
+    height: 30px;
+    font-size: 20px;
+    width: 80px;
+    margin-left: 5px;
+    border: 1px dotted #1E9FFF;
+    text-align: center;
+    float: left;
+    cursor: pointer;
+}
+
 .setting {
     float: right;
     text-align: right;
     margin-right: -20px;
+    cursor: pointer;
+    position: relative;
+}
+
+.ws-cancle {
+    margin-left: 40px;
+}
+
+.vertical-ul {
+    display: none;
+    position: absolute;
+    left: 0;
+    /*text-align: left;*/
+    background-color: #fff;
+    border: 1px solid rgba(6, 102, 201, 1);
+    padding: 2px;
+    box-shadow: 2px 2px 5px rgba(00, 00, 00, .3);
+    z-index: 999;
+}
+
+.edit {
+    width: 100%;
+    height: 50px;
+    padding-top: 20px;
+    border-bottom: 1px dotted #1E9FFF;
+    /*border-top: 1px dotted #1E9FFF;*/
+    background-color: gray;
+    color: white;
+    display: none;
+}
+
+.label-edit {
+    border: 1px dotted #1E9FFF;
 }

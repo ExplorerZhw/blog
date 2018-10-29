@@ -10,4 +10,6 @@ public interface WebsiteDao {
     List<Website> selectWebsites();
 
     Website getByWebsiteId(String websiteId);
+
+    void update(Website website);
 }

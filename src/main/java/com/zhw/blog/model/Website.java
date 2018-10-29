@@ -1,6 +1,8 @@
 package com.zhw.blog.model;
 
-public class Website {
+import java.io.Serializable;
+
+public class Website implements Serializable {
     private String websiteId;
     private String websiteName;
     private String websiteUrl;

@@ -39,11 +39,28 @@
         <include refid="BASE_TABLE"/>
     </select>
 
-    <select id="getByWebsiteId" resultType="com.zhw.blog.model.Website">
+    <select id="getByWebsiteId" parameterType="String" resultType="com.zhw.blog.model.Website">
         SELECT
         <include refid="BASE_COLUMN"/>
         FROM
         <include refid="BASE_TABLE"/>
-        where websiteId = #{websiteId, jdbcType=VARCHAR}
+        where websiteId = #{websiteId}
     </select>
+    <!-- 修改 -->
+    <update id="update" parameterType="Website">
+        update
+        <include refid="BASE_TABLE"/>
+        <set>
+            <if test="websiteName!=null">
+                websiteName=#{websiteName},
+            </if>
+            <if test="websiteUrl!=null">
+                websiteUrl=#{websiteUrl},
+            </if>
+            <if test="labelId!=null">
+                labelId=#{labelId},
+            </if>
+        </set>
+        where websiteId=#{websiteId}
+    </update>
 </mapper>

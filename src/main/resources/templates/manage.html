@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>ExplorerZhw</title>
+    <link rel="shortcut icon" href="/static/image/title.ico" type="image/x-icon">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/static/plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/static/css/login.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">ExplorerZhw</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="javascript:" onclick="queryMenu('article')">文章管理</a></li>
+            <li class="layui-nav-item"><a href="javascript:" onclick="queryMenu('statistics')">数据统计</a></li>
+            <li class="layui-nav-item"><a href="javascript:" onclick="queryMenu('system')">系统管理</a></li>
+        </ul>
+        <ul class="layui-nav layui-layout-right page-menu">
+            <li class="layui-nav-item" id="loginUser">
+                <a href="javascript:">
+                    <img src="" class="layui-nav-img" onerror='this.src="../static/image/menu/user.png"'>
+                </a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:" onclick="loadContent('/static/html/manage/index.html')">
+                    <img src="../static/image/menu/home.png" class="layui-nav-img">
+                </a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:" onclick="loginOut()">
+                    <img src="../static/image/menu/exit.png" class="layui-nav-img">
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree">
+            </ul>
+        </div>
+    </div>
+    <!-- 内容主体区域 -->
+    <div class="layui-body">
+        <div style="padding: 15px;height: 96%;width: 98%">
+            <iframe src="" id="manageContent" height="100%" width="100%">
+
+            </iframe>
+        </div>
+    </div>
+    <!-- 底部固定区域 -->
+    <!--<div class="layui-footer">-->
+    <!--© layui.com - 底部固定区域-->
+    <!--</div>-->
+</div>
+<script id="menuTmpl" type="text/x-dot-template">
+    {{~it:item1}}
+    <li class="layui-nav-item" onclick="changeMunu(this)">
+        <a class="" href="javascript:;">{{=item1.menuName}}</a>
+        <dl class="layui-nav-child">
+            {{?item1.menuList}}
+            {{~item1.menuList:item2}}
+            <dd><a href="javascript:;" onclick="loadContent('{{=item2.linkPath}}')">{{=item2.menuName}}</a></dd>
+            {{~}}
+            {{?}}
+        </dl>
+    </li>
+    {{~}}
+</script>
+<script src="/static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/plug/doT/doT.js"></script>
+<script src="/static/plug/layer/layer.js"></script>
+<script src="/static/plug/layui/layui.js" charset="utf-8"></script>
+<script src="/static/js/common.js"></script>
+<script src="/static/js/manage.js"></script>
+</body>
+</html>

@@ -12,5 +12,7 @@ public interface WebsiteService {
 
     Map<String, List<Website>> findAllClassifyWebsites();
 
-    Website getOne(String wsid);
+    Website getOne(String websiteId);
+
+    void update(Website website);
 }

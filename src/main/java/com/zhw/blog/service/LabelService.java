@@ -8,4 +8,8 @@ public interface LabelService {
     int addLabel(Label label);
 
     List<Label> findAllLabel();
+
+    Label getOne(String lableId);
+
+    void update(Label label);
 }

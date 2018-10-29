@@ -9,4 +9,8 @@ public interface LabelDao {
     int insert(Label label);
 
     List<Label> selectLabels();
+
+    Label getByLabelId(String lableId);
+
+    void update(Label label);
 }

@@ -52,7 +52,7 @@ function setBackground() {
     // var min = 10;
     // var rand = parseInt(Math.random() * (max - min + 1) + min);
     var rand = 1;
-    $('body').attr('background', '/image/bg/' + rand + '.jpg');
+    $('body').attr('background', '/static/image/bg/' + rand + '.jpg');
 }
 
 function changeSearchProvider(obj) {
@@ -100,13 +100,59 @@ function openWebsite(obj) {
     window.open(url);
 }
 
-function intoEdit() {
-    $('div.layui-tab-content').find('div.layui-show').find('div').attr('onclick', editWebsite(this));
+function editPage() {
+    $editDom = $('div.layui-tab div.edit');
+    var state = $editDom.data('state');
+    if (state == 'view') {
+        $editDom.data('state', 'edit');
+        $editDom.show();
+    } else {
+        $editDom.data('state', 'view');
+        $editDom.hide();
+        quitEditWebSite();
+        quitEditLable();
+        query();
+    }
+}
+
+function intoEditWebSite() {
+    $('div.layui-tab-content').find('div.layui-show').find('div').removeClass('d-website');
+    $('div.layui-tab-content').find('div.layui-show').find('div').addClass('d-website-edit');
+    $('div.layui-tab-content').find('div.layui-show').find('div').attr('onclick', 'editWebsite(this)');
+}
+
+function quitEditWebSite() {
+    $('div.layui-tab-content').find('div.layui-show').find('div').removeClass('d-website-edit');
+    $('div.layui-tab-content').find('div.layui-show').find('div').addClass('d-website');
+    $('div.layui-tab-content').find('div.layui-show').find('div').attr('onclick', 'openWebsite(this)');
+}
+
+function intoEditLable() {
+    $('div.layui-tab').find('.is-label').addClass('label-edit');
+    $('div.layui-tab').find('.is-label').attr('onclick', 'editLabel(this)');
+}
+
+function quitEditLable() {
+    $('div.layui-tab-title').find('.is-label').removeClass('label-edit');
+    $('div.layui-tab-title').find('.is-label').attr('onclick', 'editLabel(this)');
 }
 
 function editWebsite(obj) {
     var wsid = $(obj).data('wsid');
-    ajaxGet('/website/getOne', {websiteId: wsid}, function () {
+    if (wsid) {
+        openSelfDialog('edit', '编辑站点', '/static/html/blogModel/input_website.html?wsid=' + wsid, 500, 300);
+    }
+}
 
-    })
+function editLabel(obj) {
+    var labelId = $(obj).attr('labelVal');
+    if (labelId) {
+        openSelfDialog('edit', '编辑标签', '/static/html/blogModel/input_label.html?labelId=' + labelId, 500, 300);
+    }
+}
+
+function toLogin() {
+    ajaxGet('/toLogin', {}, function (data) {
+        window.location.href = '/' + data;
+    });
 }

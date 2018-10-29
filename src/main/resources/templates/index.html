@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>ExplorerZhw</title>
-    <link rel="icon" href="/image/title.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="/image/title.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/static/image/title.ico" type="image/x-icon">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/plug/layui/css/layui.css" media="all">
 </head>
 <body>
 <div class="page-container">
@@ -21,6 +20,7 @@
                 <div class="grid-demo time"></div>
             </div>
             <div class="layui-col-xs2">&nbsp;</div>
+            <a href="javasscript:" onclick="toLogin()">aaa</a>
         </div>
     </div>
     <div class="right">
@@ -53,7 +53,9 @@
             <div class="layui-col-xs2">&nbsp;</div>
             <div class="layui-col-xs8 l-context">
             </div>
-            <div class="layui-col-xs2">&nbsp;</div>
+            <div class="layui-col-xs1 setting-content">
+            </div>
+            <div class="layui-col-xs1">&nbsp;</div>
         </div>
     </div>
 </div>
@@ -62,26 +64,36 @@
     <div class="layui-tab layui-tab-brief l-labels">
         <ul class="layui-tab-title">
             {{~it:item:index}}
-            <li class="{{?index == 0}}layui-this{{?}}" labelVal="{{=item.labelId}}" onclick="changeTags(this)">{{=item.labelName}}</li>
+            <li class="{{?index == 0}}layui-this{{?}} is-label" labelVal="{{=item.labelId}}" onclick="changeTags(this)">{{=item.labelName}}</li>
             {{~}}
-            <li class="setting" onclick="intoEdit()"><span><img src="image/setting.ico" width="16px"></span></li>
+            <li class="setting" onclick="editPage()">
+                <span><img src="/static/image/setting.ico" width="16px"></span>
+            </li>
         </ul>
-        <div class="layui-tab-content" style="height: 100px;">
+        <div class="edit" data-state="view">
+            <span><div class="d-website" onclick="addLable()">增加标签</div></span>
+            <span><div class="d-website" onclick="intoEditLable()">编辑标签</div></span>
+            <span><div class="d-website" onclick="addWebSite()">增加站点</div></span>
+            <span><div class="d-website" onclick="intoEditWebSite()">编辑站点</div></span>
+            <span><div class="d-website" onclick="editPage()">完成</div></span>
+        </div>
+        <div class="layui-tab-content" style="height: 100px;width: 100%;">
             {{~it:item:index}}
             <div class="layui-tab-item {{?index == 0}}layui-show{{?}}" labelVal="{{=item.labelId}}">
                 {{~item.websites:ws}}
-                <span><div class="d-website" data-wsid="{{=ws.websiteId}}" data-url="{{=ws.websiteUrl}}" onclick="editWebsite(this)">{{=ws.websiteName}}</div></span>
+                <span><div class="d-website" data-wsid="{{=ws.websiteId}}" data-url="{{=ws.websiteUrl}}"
+                           onclick="openWebsite(this)">{{=ws.websiteName}}</div></span>
                 {{~}}
             </div>
             {{~}}
         </div>
     </div>
 </script>
-<script src="/js/jquery-3.3.1.min.js"></script>
-<script src="/plug/doT/doT.js"></script>
-<script src="/plug/layer/layer.js"></script>
-<script src="/plug/layui/layui.js" charset="utf-8"></script>
-<script src="/js/common.js"></script>
-<script src="/js/main.js"></script>
+<script src="/static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/plug/doT/doT.js"></script>
+<script src="/static/plug/layer/layer.js"></script>
+<script src="/static/plug/layui/layui.js" charset="utf-8"></script>
+<script src="/static/js/common.js"></script>
+<script src="/static/js/index.js"></script>
 </body>
 </html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>ExplorerZhw</title>
+    <link rel="shortcut icon" href="/static/image/title.ico" type="image/x-icon">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/static/css/login.css">
+    <link rel="stylesheet" href="/static/plug/layui/css/layui.css" media="all">
+</head>
+<body>
+<div class="page-container">
+    <div class="layui-row search">
+        <div class="layui-col-xs5">&nbsp;</div>
+        <div class="layui-col-xs2 form">
+            <div class="layui-row login-input">
+                <div class="layui-col-xs2">
+                    <button class="layui-btn layui-btn-primary">账号</button>
+                </div>
+                <div class="layui-col-xs10">
+                    <input type="text" name="userName" lay-verify="title" autocomplete="off" placeholder="请输入账号" class="layui-input">
+                </div>
+                <div class="layui-col-xs2">
+                    <button class="layui-btn layui-btn-primary">密码</button>
+                </div>
+                <div class="layui-col-xs10">
+                    <input type="password" name="password" lay-verify="pass" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-col-xs12">
+                    <button class="layui-btn layui-btn-fluid" onclick="doLogin()">登录</button>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-xs5">&nbsp;</div>
+    </div>
+</div>
+<script src="/static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/plug/layer/layer.js"></script>
+<script src="/static/plug/layui/layui.js" charset="utf-8"></script>
+<script src="/static/js/common.js"></script>
+<script src="/static/js/login.js"></script>
+</body>
+</html>

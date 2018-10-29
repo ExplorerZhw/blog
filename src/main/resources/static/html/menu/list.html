@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="menu.css">
+    <link rel="stylesheet" href="/static/plug/layui/css/layui.css" media="all">
+</head>
+<body>
+<div class="layui-row">
+    <div class="layui-col-xs12" id="searchForm">
+        <ul class="table-searchbox">
+            <li>
+                <label>父菜单</label>
+                <select name="fId">
+
+                </select>
+            </li>
+            <li>
+                <label>菜单名称</label>
+                <input type="text" name="menuName">
+            </li>
+            <li>
+                <label>包含子菜单</label>
+                <input type="checkbox" name="childMenu">
+            </li>
+            <li>
+                <button type="button" class="layui-btn layui-btn-sm layui-btn-warm" onclick="query()">查询</button>
+                <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" onclick="editNemu()">添加</button>
+            </li>
+        </ul>
+    </div>
+    <div class="layui-col-xs12">
+        <table class="layui-table">
+            <colgroup>
+                <col width="50">
+                <col width="150">
+                <col width="150">
+                <col>
+                <col width="150">
+                <col>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>菜单名称</th>
+                    <th>排序号</th>
+                    <th>链接地址</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--表格模板-->
+<script id="tableTmpl" type="text/x-dot-template">
+    {{~it:item:index}}
+    <tr data-menuid="{{=item.menuId}}">
+        <td>{{=index}}</td>
+        <td>{{=item.menuName}}</td>
+        <td>{{=item.sortNo}}</td>
+        <td>{{=item.linkPath}}</td>
+        <td>
+            <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" onclick="editNemu(this)">编辑</button>
+            <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="deleteMenu(this)">删除</button>
+        </td>
+    </tr>
+    {{~}}
+</script>
+<!--父菜单下拉模板-->
+<script id="fIdTmpl" type="text/x-dot-template">
+    <option value=""></option>
+    {{~it:item:index}}
+    <option value="{{=item.menuId}}">{{=item.menuName}}</option>
+    {{~}}
+</script>
+<script src="/static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/plug/doT/doT.js"></script>
+<script src="/static/plug/layer/layer.js"></script>
+<script src="/static/plug/layui/layui.js" charset="utf-8"></script>
+<script src="/static/js/common.js"></script>
+<script src="menu.js"></script>
+</body>
+</html>

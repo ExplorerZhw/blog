@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加网站</title>
+    <link rel="stylesheet" href="/static/plug/layui/css/layui.css" media="all">
+</head>
+<body>
+    <form class="page-content">
+    </form>
+    <script id="menuTmpl" type="text/x-dot-template">
+        <input type="hidden" name="menuId" value="{{=it.menuId || ''}}"/>
+        <br/>
+        <div class="layui-row">
+            <div class="layui-col-xs3">
+                <label class="layui-form-label">菜单名称</label>
+            </div>
+            <div class="layui-col-xs7">
+                <input class="layui-input" type="text" name="menuName" value="{{=it.menuName || ''}}"/>
+            </div>
+        </div>
+        <br/>
+        <div class="layui-row">
+            <div class="layui-col-xs3">
+                <label class="layui-form-label">管理菜单</label>
+            </div>
+            <div class="layui-col-xs7">
+                <select name="systemId" class="layui-input-block" style="width: 100%;margin-left: 0px">
+                    <option value=""></option>
+                    <option value="article">文章管理</option>
+                    <option value="statistics">数据统计</option>
+                    <option value="system">系统管理</option>
+                </select>
+            </div>
+        </div>
+        <br/>
+        <div class="layui-row">
+            <div class="layui-col-xs3">
+                <label class="layui-form-label">父菜单</label>
+            </div>
+            <div class="layui-col-xs7">
+                <select name="fId" class="layui-input-block" style="width: 100%;margin-left: 0px">
+                </select>
+            </div>
+        </div>
+        <br/>
+        <div class="layui-row">
+            <div class="layui-col-xs3">
+                <label class="layui-form-label">菜单地址</label>
+            </div>
+            <div class="layui-col-xs7">
+                <input class="layui-input" type="text" name="linkPath" value="{{=it.linkPath || ''}}"/>
+            </div>
+        </div>
+        <br/>
+        <div class="layui-row">
+            <div class="layui-col-xs3">
+                <label class="layui-form-label">排序号</label>
+            </div>
+            <div class="layui-col-xs7">
+                <input class="layui-input" type="text" name="sortNo" value="{{=it.sortNo || ''}}"/>
+            </div>
+        </div>
+        <br/>
+        <div class="layui-row">
+            <div class="layui-col-xs5">&nbsp;</div>
+            <div class="layui-col-xs3">
+                <button class="layui-btn layui-btn-sm layui-btn-radius" onclick="save()">保存</button>
+                <button class="layui-btn layui-btn-danger layui-btn-sm layui-btn-radius" onclick="cancleBut()">取消</button>
+            </div>
+        </div>
+    </script>
+    <!--父菜单下拉模板-->
+    <script id="fIdTmpl" type="text/x-dot-template">
+        <option value=""></option>
+        {{~it:item:index}}
+        <option value="{{=item.menuId}}">{{=item.menuName}}</option>
+        {{~}}
+    </script>
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
+    <script src="/static/plug/doT/doT.js"></script>
+    <script src="/static/plug/layui/layui.js" charset="utf-8"></script>
+    <script src="/static/js/common.js"></script>
+</body>
+<script src="menu.js"></script>
+<script>
+    $(function () {
+        window.g_menuId = searchByParam('menuId');
+        query();
+    });
+
+    function query() {
+        ajaxGet('/manage/menu/getOne', {menuId: g_menuId}, function (menu) {
+            var menuTmpl = $('#menuTmpl').html();
+            $('form').html(doT.template(menuTmpl)(menu));
+            bindSelectFid(menu.fId);
+            if (menu.systemId){
+                $('[name=systemId]').val(menu.systemId);
+            }
+        });
+    }
+
+    function save() {
+        var param = $('form').find('input,select').serializeObject();
+        // ajaxPost('/manage/menu/saveOrUpdate', {json: JSON.stringify(param)}, function () {
+        ajaxPost('/manage/menu/saveOrUpdate', param, function () {
+            closeSelfDialog();
+        })
+    }
+
+    function cancleBut() {
+        closeSelfDialog();
+    }
+</script>
+</html>

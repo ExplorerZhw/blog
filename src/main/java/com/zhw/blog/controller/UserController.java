@@ -4,13 +4,15 @@ import com.zhw.blog.model.User;
 import com.zhw.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by Administrator on 2017/8/16.
  */
 @Controller
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/manage/user")
 public class UserController {
 
     @Autowired
@@ -22,14 +24,5 @@ public class UserController {
         return userService.addUser(user);
     }
 
-    @ResponseBody
-    @GetMapping("/all")
-    public Object findAllUser(
-            @RequestParam(name = "pageNum", required = false, defaultValue = "1")
-                    int pageNum,
-            @RequestParam(name = "pageSize", required = false, defaultValue = "10")
-                    int pageSize) {
-        return userService.findAllUser(pageNum, pageSize);
-    }
 }
 

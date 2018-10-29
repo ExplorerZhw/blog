@@ -1,0 +1,17 @@
+body {
+    background-image: url("/static/image/bg/2.jpg");
+}
+
+.login-input {
+    margin-top: 100%;
+    border: 10px solid white;
+}
+
+ul.page-menu li {
+    width: 60px;
+    height: 60px;
+}
+
+.child-menu {
+    padding-left: 30px;
+}

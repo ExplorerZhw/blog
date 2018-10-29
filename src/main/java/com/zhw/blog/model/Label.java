@@ -1,6 +1,8 @@
 package com.zhw.blog.model;
 
-public class Label {
+import java.io.Serializable;
+
+public class Label implements Serializable {
     private String labelId;
     private String labelName;
     private Integer sortNo;

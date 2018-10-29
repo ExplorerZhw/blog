@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加网站</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/plug/layui/css/layui.css" media="all">
+</head>
+<body>
+<form class="page-content">
+</form>
+<script id="labelTmpl" type="text/x-dot-template">
+    <input type="hidden" name="labelId" value="{{=it.labelId}}"/>
+    <br/>
+    <div class="layui-row">
+        <div class="layui-col-xs3">
+            <label class="layui-form-label">标签名</label>
+        </div>
+        <div class="layui-col-xs7">
+            <input class="layui-input" type="text" name="labelName" value="{{=it.labelName}}"/>
+        </div>
+    </div>
+    <br/>
+    <div class="layui-row">
+        <div class="layui-col-xs3">
+            <label class="layui-form-label">排序号</label>
+        </div>
+        <div class="layui-col-xs7">
+            <input class="layui-input" type="text" name="sortNo" value="{{=it.sortNo}}"/>
+        </div>
+    </div>
+    <br/>
+    <div class="layui-row">
+        <div class="layui-col-xs5">&nbsp;</div>
+        <div class="layui-col-xs3">
+            <button class="layui-btn layui-btn-sm layui-btn-radius" onclick="save()">保存</button>
+            <button class="layui-btn layui-btn-danger layui-btn-sm layui-btn-radius" onclick="cancleBut()">取消</button>
+        </div>
+    </div>
+</script>
+<script src="/static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/plug/doT/doT.js"></script>
+<script src="/static/plug/layui/layui.js" charset="utf-8"></script>
+<script src="/static/js/common.js"></script>
+</body>
+<script>
+    $(function () {
+        window.g_labelId = searchByParam('labelId');
+        query()
+    });
+
+    function query() {
+        ajaxGet('/label/getOne', {labelId: g_labelId}, function (label) {
+                var labelTmpl = $('#labelTmpl').html();
+                var labelHtml = doT.template(labelTmpl)(label);
+                $('form').html(labelHtml);
+        });
+    }
+
+    function save() {
+        var param = $('form').find('input,select').serializeObject();
+        ajaxPost('/label/update', {json: JSON.stringify(param)}, function () {
+            closeSelfDialog();
+        })
+    }
+
+    function cancleBut() {
+        closeSelfDialog();
+    }
+</script>
+</html>

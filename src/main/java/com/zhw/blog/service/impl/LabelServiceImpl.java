@@ -23,11 +23,18 @@ public class LabelServiceImpl implements LabelService {
         return labelDao.insert(label);
     }
 
-    /*
-     *
-     */
     @Override
     public List<Label> findAllLabel() {
         return labelDao.selectLabels();
+    }
+
+    @Override
+    public Label getOne(String lableId) {
+        return labelDao.getByLabelId(lableId);
+    }
+
+    @Override
+    public void update(Label label) {
+        labelDao.update(label);
     }
 }
