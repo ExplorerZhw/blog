@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>ExplorerZhw</title>
@@ -13,27 +13,39 @@
 <body>
 <div class="page-container">
     <div class="layui-row search">
-        <div class="layui-col-xs5">&nbsp;</div>
-        <div class="layui-col-xs2 form">
-            <div class="layui-row login-input">
-                <div class="layui-col-xs2">
-                    <button class="layui-btn layui-btn-primary">账号</button>
+        <div class="layui-col-xs4">&nbsp;</div>
+        <div class="layui-col-xs4">
+            <div class="layui-row">
+                <div class="layui-col-xs12 maxim">
+                    &#12288;&#12288;天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。</br>&#12288;&#12288;人之为学有难易乎？学之，则难者亦易矣；不学，则易者亦难矣。
                 </div>
-                <div class="layui-col-xs10">
-                    <input type="text" name="userName" lay-verify="title" autocomplete="off" placeholder="请输入账号" class="layui-input">
+                <div class="layui-col-xs3">&nbsp;</div>
+                <div class="layui-col-xs6 form">
+                    <div class="layui-row login-input">
+                        <div class="layui-col-xs2">
+                            <button class="layui-btn layui-btn-primary">账号</button>
+                        </div>
+                        <div class="layui-col-xs10">
+                            <input type="text" name="userName" lay-verify="title" autocomplete="off" placeholder="请输入账号" class="layui-input">
+                        </div>
+                        <div class="layui-col-xs2">
+                            <button class="layui-btn layui-btn-primary">密码</button>
+                        </div>
+                        <div class="layui-col-xs10">
+                            <input type="password" name="password" lay-verify="pass" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="layui-col-xs12">
+                            <button class="layui-btn layui-btn-fluid" onclick="doLogin()">登录</button>
+                        </div>
+                        <div class="layui-col-xs12">
+                            <button class="layui-btn layui-btn-fluid layui-btn-warm" onclick="goIndex()">返回首页</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="layui-col-xs2">
-                    <button class="layui-btn layui-btn-primary">密码</button>
-                </div>
-                <div class="layui-col-xs10">
-                    <input type="password" name="password" lay-verify="pass" placeholder="请输入密码" autocomplete="off" class="layui-input">
-                </div>
-                <div class="layui-col-xs12">
-                    <button class="layui-btn layui-btn-fluid" onclick="doLogin()">登录</button>
-                </div>
+                <div class="layui-col-xs3">&nbsp;</div>
             </div>
         </div>
-        <div class="layui-col-xs5">&nbsp;</div>
+        <div class="layui-col-xs4">&nbsp;</div>
     </div>
 </div>
 <script src="/static/js/jquery-3.3.1.min.js"></script>

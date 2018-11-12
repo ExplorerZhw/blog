@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="article.css">
+    <link rel="stylesheet" href="/static/plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/static/plug/simditor-2.3.21/styles/simditor.css"/>
+</head>
+<body>
+<div class="layui-row" id="list">
+    <div class="layui-col-xs12" id="searchForm">
+        <ul class="table-searchbox">
+            <li>
+                <label>分类</label>
+                <select name="class">
+
+                </select>
+            </li>
+            <li>
+                <label>标题</label>
+                <input type="text" name="title" id="queryTitle">
+            </li>
+            <li>
+                <label>内容</label>
+                <input type="text" name="content" id="queryContent">
+            </li>
+            <li>
+                <button type="button" class="layui-btn layui-btn-sm layui-btn-warm" onclick="queryList()">查询</button>
+            </li>
+        </ul>
+    </div>
+    <div class="layui-col-xs12">
+        <table class="layui-table">
+            <colgroup>
+                <col width="50">
+                <col width="200">
+                <col>
+                <col width="200">
+                <col width="200">
+                <col width="200">
+            </colgroup>
+            <thead>
+            <tr>
+                <th></th>
+                <th>分类</th>
+                <th>标题</th>
+                <th>创建时间</th>
+                <th>更新时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="layui-row layui-hide" id="edit">
+    <div class="layui-col-xs12">
+        <ul class="table-searchbox">
+            <input type="hidden" name="articleId" id="editArticleId">
+            <li>
+                <label>分类</label>
+                <input type="text" name="class" id="editClass" readonly>
+            </li>
+            <li>
+                <label>标题</label>
+                <input type="text" name="title" id="editTitle" readonly>
+            </li>
+            <li>
+                <button type="button" class="layui-btn layui-btn-sm layui-btn-warm" onclick="goList()">返回列表</button>
+            </li>
+        </ul>
+    </div>
+    <div class="layui-col-xs12">
+        <div id="viewContent" style="background-color: #dee7ec">
+
+        </div>
+    </div>
+</div>
+<!--表格模板-->
+<script id="tableTmpl" type="text/x-dot-template">
+    {{~it:item:index}}
+    <tr data-articleid="{{=item.articleId}}">
+        <td>{{=index}}</td>
+        <td>{{=item.title}}</td>
+        <td>{{=item.title}}</td>
+        <td>{{=item.createTimeString}}</td>
+        <td>{{=item.updateTimeString || ''}}</td>
+        <td>
+            <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" onclick="viewArticle(this)">查看</button>
+        </td>
+    </tr>
+    {{~}}
+</script>
+<!--父菜单下拉模板-->
+<script id="fIdTmpl" type="text/x-dot-template">
+    <option value=""></option>
+    {{~it:item:index}}
+    <option value="{{=item.menuId}}">{{=item.menuName}}</option>
+    {{~}}
+</script>
+<script src="/static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/plug/doT/doT.js"></script>
+<script src="/static/plug/layer/layer.js"></script>
+<script src="/static/plug/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/plug/simditor-2.3.21/scripts/module.js"></script>
+<script type="text/javascript" src="/static/plug/simditor-2.3.21/scripts/hotkeys.js"></script>
+<script type="text/javascript" src="/static/plug/simditor-2.3.21/scripts/uploader.js"></script>
+<script type="text/javascript" src="/static/plug/simditor-2.3.21/scripts/simditor.js"></script>
+<script src="/static/js/common.js"></script>
+<script>
+    function queryList() {
+        var param = {
+            title: $('#queryTitle').val()
+        };
+        ajaxGet('/manage/Article/listData', param, function (response) {
+            var tableTmpl = $('#tableTmpl').html();
+            $('tbody').html(doT.template(tableTmpl)(response));
+        });
+    }
+
+    function viewArticle(obj) {
+        $('#list').addClass('layui-hide');
+        $('#edit').removeClass('layui-hide');
+        if (obj) {
+            var param = {
+                articleId: $(obj).closest('tr').data('articleid')
+            };
+            ajaxGet('/manage/Article/getOne', param, function (response) {
+                $('#editArticleId').val(response.articleId);
+                $('#editTitle').val(response.title);
+                $('#viewContent').html(response.content);
+            });
+        }
+    }
+
+    function goList() {
+        $('#list').removeClass('layui-hide');
+        $('#edit').addClass('layui-hide');
+        queryList();
+    }
+</script>
+</body>
+</html>

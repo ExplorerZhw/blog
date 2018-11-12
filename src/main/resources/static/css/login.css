@@ -2,8 +2,16 @@ body {
     background-image: url("/static/image/bg/2.jpg");
 }
 
+.maxim {
+    font-size: 30px;
+    background-color: #dee7ec;
+    margin-top: 100px;
+    border-radius: 10px 10px 10px 10px;
+    padding: 15px;
+}
+
 .login-input {
-    margin-top: 100%;
+    margin-top: 50px;
     border: 10px solid white;
 }
 

@@ -2,14 +2,12 @@ package com.zhw.blog.controller;
 
 import com.zhw.blog.model.Menu;
 import com.zhw.blog.service.MenuService;
-import com.zhw.blog.util.BeanUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -36,9 +34,8 @@ public class MenuController {
         return menuService.listData(menu);
     }
 
-    @RequestMapping("/saveOrUpdate")
-    public void saveOrUpdate(HttpServletRequest request,Menu menu) {
-//        Menu menu = BeanUtil.parseJsonToJavaBean(request, "json", Menu.class);
+    @RequestMapping("/save")
+    public void save(Menu menu) {
         if (StringUtils.isNotEmpty(menu.getMenuId())) {
             menuService.update(menu);
         } else {

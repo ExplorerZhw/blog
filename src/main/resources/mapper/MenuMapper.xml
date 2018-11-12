@@ -26,10 +26,15 @@
     </insert>
 
     <select id="listData" parameterType="com.zhw.blog.model.Menu" resultType="com.zhw.blog.model.Menu">
-        SELECT
-        <include refid="BASE_COLUMN"/>
-        FROM
-        <include refid="BASE_TABLE"/>
+        select t.menuId as menuId,
+        t.menuName as menuName,
+        t.fId as fId,
+        t.systemId as systemId,
+        t.linkPath as linkPath,
+        t.sortNo as sortNo,
+        case when fId ='' or fId is null then ''
+        else (select tt.menuName from t_menu tt where t.fId = tt.menuId) end as fName
+        from t_menu t
         where 1=1
         <if test="menuId != null">
             and menuId=#{menuId}
@@ -51,19 +56,19 @@
         update
         <include refid="BASE_TABLE"/>
         <set>
-            <if test="menuName != null">
+            <if test="menuName!=null">
                 menuName=#{menuName},
             </if>
-            <if test="fId != null">
+            <if test="fId!=null">
                 fId=#{fId},
             </if>
-            <if test="systemId != null">
+            <if test="systemId!=null">
                 systemId=#{systemId},
             </if>
-            <if test="linkPath != null">
+            <if test="linkPath!=null">
                 linkPath=#{linkPath},
             </if>
-            <if test="sortNo != null">
+            <if test="sortNo!=null">
                 sortNo=#{sortNo},
             </if>
         </set>

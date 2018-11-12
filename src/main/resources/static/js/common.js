@@ -1,33 +1,45 @@
 function ajaxPost(url, data, callBack) {// POST请求
-    ajaxCommon('POST', true, url, data, callBack);
+    ajaxCommon('POST', true, url, data, callBack, false);
 }
 
 function ajaxGet(url, data, callBack) {// GET请求
-    ajaxCommon('GET', true, url, data, callBack);
+    ajaxCommon('GET', true, url, data, callBack, false);
 }
 
 function ajaxSync(url, data, callBack) {// 同步请求
-    ajaxCommon('GET', false, url, data, callBack);
+    ajaxCommon('GET', false, url, data, callBack, false);
 }
 
-function ajaxCommon(type, isAsync, url, data, callBack) {// AJAX构造方法
+function ajaxCommon(type, isAsync, url, data, callBack, contentType) {// AJAX构造方法
     // 当需要调用其他项目的接口时，定制开发
     url = 'http://' + window.location.host + url;
-    debugger
+    // 给每个请求添加随机数，防止缓存
+    url += ((url.indexOf('?') > -1) ? '&' : '?') + 'rn=' + new Date().getTime();
+    // 根据提交参数类型不同，设置不同的ajax提交方式
+    var processDataVal, contentTypeVal;
+    if (contentType == 'upload') {
+        processDataVal = false;
+        contentTypeVal = false;
+    } else {
+        processDataVal = true;
+        contentTypeVal = contentType ? 'application/json' : 'application/x-www-form-urlencoded; charset=UTF-8'
+    }
     $.ajax({
         type: type,
         url: url,
         async: isAsync,
-        data: data,
+        processData: processDataVal,// 默认值为true
+        contentType: contentTypeVal,
+        data: data || {},
         success: function (response) {
             try {
-                callBack(response);
+                if (callBack) callBack(response);
             } catch (e) {
                 alert(e);
             }
         },
         error: function (e) {
-            alert(e.statusText);
+            //alertServerError(); //不弹出此异常
         }
     });
 }
@@ -135,5 +147,24 @@ function alertError(message) {
     layer.alert(message, {
         icon: 2,
         skin: 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+    })
+}
+
+/**
+ * 弹出确认框
+ */
+function alertConfirm(msg, okCall) {
+    layer.open({
+        content: msg
+        , btn: ['确定', '取消'],
+        style: 'width:80%',
+        yes: function () {
+            if (okCall) {
+                okCall();
+            }
+        },
+        cancel: function () { //按右上角“X”按钮
+            return false;
+        },
     })
 }

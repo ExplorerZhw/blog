@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhw.blog.dao.ArticleDao">
+    <sql id="BASE_TABLE">
+    t_article
+    </sql>
+
+    <sql id="BASE_COLUMN">
+    articleId,title,content,isShow,createTime,updateTime
+    </sql>
+
+    <insert id="insert" parameterType="com.zhw.blog.model.Article">
+        INSERT INTO
+        <include refid="BASE_TABLE"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            articleId,title,content,isShow,createTime,updateTime
+        </trim>
+        <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+            #{articleId, jdbcType=VARCHAR},
+            #{title, jdbcType=VARCHAR},
+            #{content, jdbcType=CLOB},
+            #{isShow, jdbcType=VARCHAR},
+            #{createTime, jdbcType=DATE},
+            #{updateTime, jdbcType=DATE},
+        </trim>
+    </insert>
+
+    <select id="listData" parameterType="com.zhw.blog.model.Article" resultType="com.zhw.blog.model.Article">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM
+        <include refid="BASE_TABLE"/>
+        where 1=1
+        <if test="articleId != null">
+            and articleId=#{articleId}
+        </if>
+        <if test="title != null">
+            and title like concat('%',#{title},'%')
+        </if>
+        <if test="content != null">
+            and content like concat('%',#{content},'%')
+        </if>
+        <if test="isShow != null">
+            and isShow=#{isShow}
+        </if>
+        order by createTime desc;
+    </select>
+
+    <!-- 修改 -->
+    <update id="update" parameterType="com.zhw.blog.model.Article">
+        update
+        <include refid="BASE_TABLE"/>
+        <set>
+            <if test="title!=null">
+                title=#{title},
+            </if>
+            <if test="content!=null">
+                content=#{content},
+            </if>
+            <if test="isShow!=null">
+                isShow=#{isShow},
+            </if>
+            <if test="createTime!=null">
+                createTime=#{createTime},
+            </if>
+            <if test="updateTime!=null">
+                updateTime=#{updateTime},
+            </if>
+        </set>
+        where articleId=#{articleId}
+    </update>
+
+    <delete id="deleteById" parameterType="String">
+        delete from
+        <include refid="BASE_TABLE"/>
+        where articleId=#{articleId}
+    </delete>
+</mapper>

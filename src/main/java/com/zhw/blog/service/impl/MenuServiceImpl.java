@@ -31,8 +31,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public void update(Menu menu) {
-        if (StringUtils.isNotEmpty(menu.getMenuId()) && StringUtils.isNotEmpty(menu.getfId())
-                && StringUtils.isNotEmpty(menu.getMenuName())) {
+        if (StringUtils.isNotEmpty(menu.getMenuId()) && StringUtils.isNotEmpty(menu.getMenuName())) {
             menuDao.update(menu);
         }
     }

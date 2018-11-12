@@ -1,0 +1,57 @@
+
+.table-searchbox {
+    /*overflow: hidden;*/
+    border: solid 1px #e0e0e0;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: none;
+    padding: 5px;
+}
+
+.table-searchbox > li {
+    display: inline-block;
+    margin: 10px 0;
+}
+
+.table-searchbox > li .icon-close {
+    line-height: 28px;
+    cursor: pointer;
+    color: #323232;
+    margin: 0 0 0 -18px;
+    font-size: 18px;
+    vertical-align: top;
+    display: inline-block;
+    position: absolute;
+}
+
+.table-searchbox > li .icon-close:hover {
+    color: #1B81EA;
+}
+
+.table-searchbox label {
+    padding: 0 5px 0 20px;
+    text-align: right;
+    color: #363636;
+    font-weight: bold;
+    font-size: 14px;
+    vertical-align: top;
+    line-height: 30px;
+}
+
+.table-searchbox .input,
+.table-searchbox input[type=text], input[type=checkbox],
+.table-searchbox select {
+    height: 30px;
+    border: solid 1px #ddd;
+    border-radius: 4px;
+    vertical-align: top;
+    font-size: 14px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1) inset;
+    line-height: 32px;
+    margin: 0;
+    padding: 0 10px;
+}
+
+.table-searchbox button {
+    margin-top: 10px;
+}

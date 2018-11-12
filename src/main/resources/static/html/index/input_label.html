@@ -51,9 +51,9 @@
 
     function query() {
         ajaxGet('/label/getOne', {labelId: g_labelId}, function (label) {
-                var labelTmpl = $('#labelTmpl').html();
-                var labelHtml = doT.template(labelTmpl)(label);
-                $('form').html(labelHtml);
+            var labelTmpl = $('#labelTmpl').html();
+            var labelHtml = doT.template(labelTmpl)(label);
+            $('form').html(labelHtml);
         });
     }
 

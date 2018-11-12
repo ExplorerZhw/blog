@@ -1,6 +1,5 @@
 package com.zhw.blog.model;
 
-import java.beans.Transient;
 import java.io.Serializable;
 import java.util.List;
 
@@ -13,6 +12,7 @@ public class Menu implements Serializable {
     private Integer sortNo;
 
     // 非db
+    private String fName;
     private List<Menu> menuList;
 
     public String getMenuId() {
@@ -61,6 +61,14 @@ public class Menu implements Serializable {
 
     public void setSortNo(Integer sortNo) {
         this.sortNo = sortNo;
+    }
+
+    public String getfName() {
+        return fName;
+    }
+
+    public void setfName(String fName) {
+        this.fName = fName;
     }
 
     public List<Menu> getMenuList() {

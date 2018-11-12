@@ -16,9 +16,7 @@ function query() {
     var param = {
         menuName: $('input[name=menuName]').val()
     };
-    debugger
     ajaxGet('/manage/menu/listData', param, function (response) {
-        debugger
         var tableTmpl = $('#tableTmpl').html();
         $('tbody').html(doT.template(tableTmpl)(response));
     });
@@ -32,6 +30,12 @@ function editNemu(obj) {
     openSelfDialog('edit', '编辑标签', '/static/html/menu/input_menu.html?menuId=' + menuId, 600, 400);
 }
 
-function deleteMenu() {
-
+function deleteMenu(obj) {
+    var menuId = $(obj).closest('tr').data('menuid');
+    alertConfirm('确认删除吗？', function () {
+        ajaxGet('/manage/menu/deleteById', {menuId: menuId}, function () {
+            alertSuccess('删除成功！');
+            query();
+        });
+    });
 }

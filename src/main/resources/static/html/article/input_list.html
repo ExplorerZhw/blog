@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="article.css">
+    <link rel="stylesheet" href="/static/plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/static/plug/simditor-2.3.21/styles/simditor.css"/>
+</head>
+<body>
+<div class="layui-row" id="list">
+    <div class="layui-col-xs12" id="searchForm">
+        <ul class="table-searchbox">
+            <li>
+                <label>分类</label>
+                <select name="class">
+
+                </select>
+            </li>
+            <li>
+                <label>标题</label>
+                <input type="text" name="title" id="queryTitle">
+            </li>
+            <li>
+                <label>内容</label>
+                <input type="text" name="content" id="queryContent">
+            </li>
+            <li>
+                <button type="button" class="layui-btn layui-btn-sm layui-btn-warm" onclick="queryList()">查询</button>
+                <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" onclick="editArticle()">添加</button>
+            </li>
+        </ul>
+    </div>
+    <div class="layui-col-xs12">
+        <table class="layui-table">
+            <colgroup>
+                <col width="50">
+                <col width="200">
+                <col>
+                <col width="200">
+                <col width="200">
+                <col width="200">
+            </colgroup>
+            <thead>
+            <tr>
+                <th></th>
+                <th>分类</th>
+                <th>标题</th>
+                <th>创建时间</th>
+                <th>更新时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="layui-row layui-hide" id="edit">
+    <div class="layui-col-xs12">
+        <ul class="table-searchbox">
+            <input type="hidden" name="articleId" id="editArticleId">
+            <li>
+                <label>分类</label>
+                <select name="class">
+
+                </select>
+            </li>
+            <li>
+                <label>标题</label>
+                <input type="text" name="title" id="editTitle">
+            </li>
+            <li>
+                <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" onclick="save()">保存</button>
+                <button type="button" class="layui-btn layui-btn-sm layui-btn-warm" onclick="goList()">返回列表</button>
+            </li>
+        </ul>
+    </div>
+    <div class="layui-col-xs12">
+        <div>
+            <textarea id="editor" type="text/plain" name="content" autofocus></textarea>
+        </div>
+    </div>
+</div>
+<!--表格模板-->
+<script id="tableTmpl" type="text/x-dot-template">
+    {{~it:item:index}}
+    <tr data-articleid="{{=item.articleId}}">
+        <td>{{=index}}</td>
+        <td>{{=item.title}}</td>
+        <td>{{=item.title}}</td>
+        <td>{{=item.createTimeString}}</td>
+        <td>{{=item.updateTimeString || ''}}</td>
+        <td>
+            <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" onclick="editArticle(this)">编辑</button>
+            <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="deleteArticle(this)">删除</button>
+        </td>
+    </tr>
+    {{~}}
+</script>
+<!--父菜单下拉模板-->
+<script id="fIdTmpl" type="text/x-dot-template">
+    <option value=""></option>
+    {{~it:item:index}}
+    <option value="{{=item.menuId}}">{{=item.menuName}}</option>
+    {{~}}
+</script>
+<script src="/static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/plug/doT/doT.js"></script>
+<script src="/static/plug/layer/layer.js"></script>
+<script src="/static/plug/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/plug/simditor-2.3.21/scripts/module.js"></script>
+<script type="text/javascript" src="/static/plug/simditor-2.3.21/scripts/hotkeys.js"></script>
+<script type="text/javascript" src="/static/plug/simditor-2.3.21/scripts/uploader.js"></script>
+<script type="text/javascript" src="/static/plug/simditor-2.3.21/scripts/simditor.js"></script>
+<script src="/static/js/common.js"></script>
+<script src="article.js"></script>
+</body>
+</html>

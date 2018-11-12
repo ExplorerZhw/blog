@@ -65,8 +65,8 @@
         <div class="layui-row">
             <div class="layui-col-xs5">&nbsp;</div>
             <div class="layui-col-xs3">
-                <button class="layui-btn layui-btn-sm layui-btn-radius" onclick="save()">保存</button>
-                <button class="layui-btn layui-btn-danger layui-btn-sm layui-btn-radius" onclick="cancleBut()">取消</button>
+                <a class="layui-btn layui-btn-sm layui-btn-radius" onclick="saveMenu()">保存</a>
+                <a class="layui-btn layui-btn-danger layui-btn-sm layui-btn-radius" onclick="closeSelfDialog()">取消</a>
             </div>
         </div>
     </script>
@@ -77,39 +77,43 @@
         <option value="{{=item.menuId}}">{{=item.menuName}}</option>
         {{~}}
     </script>
-    <script src="/static/js/jquery-3.3.1.min.js"></script>
-    <script src="/static/plug/doT/doT.js"></script>
-    <script src="/static/plug/layui/layui.js" charset="utf-8"></script>
-    <script src="/static/js/common.js"></script>
 </body>
-<script src="menu.js"></script>
+</html>
+<script src="/static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/plug/doT/doT.js"></script>
+<script src="/static/plug/layui/layui.js" charset="utf-8"></script>
+<script src="/static/js/common.js"></script>
 <script>
     $(function () {
         window.g_menuId = searchByParam('menuId');
         query();
     });
 
+    function bindSelectFid(selectId) {
+        ajaxGet('/manage/menu/listData', {}, function (response) {
+            var fIdTmpl = $('#fIdTmpl').html();
+            $('select[name=fId]').html(doT.template(fIdTmpl)(response));
+            if (selectId) {
+                $('select[name=fId]').val(selectId);
+            }
+        });
+    }
+
     function query() {
         ajaxGet('/manage/menu/getOne', {menuId: g_menuId}, function (menu) {
             var menuTmpl = $('#menuTmpl').html();
             $('form').html(doT.template(menuTmpl)(menu));
             bindSelectFid(menu.fId);
-            if (menu.systemId){
+            if (menu.systemId) {
                 $('[name=systemId]').val(menu.systemId);
             }
         });
     }
 
-    function save() {
+    function saveMenu() {
         var param = $('form').find('input,select').serializeObject();
-        // ajaxPost('/manage/menu/saveOrUpdate', {json: JSON.stringify(param)}, function () {
-        ajaxPost('/manage/menu/saveOrUpdate', param, function () {
+        ajaxPost('/manage/menu/save', param, function (data) {
             closeSelfDialog();
-        })
-    }
-
-    function cancleBut() {
-        closeSelfDialog();
+        });
     }
 </script>
-</html>

@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class UUIDUtil {
 
-    private static  String uuidStr;
+    private static String uuidStr;
 
     public static String getUuidStr() {
         createUuid();
@@ -19,6 +19,9 @@ public class UUIDUtil {
             uuidStr = createUuid();
         } else {
             uuidStr = uuid.toString();
+        }
+        if (uuidStr.length() > 32) {
+            uuidStr = uuidStr.substring(0, 31);
         }
         return uuidStr;
     }
