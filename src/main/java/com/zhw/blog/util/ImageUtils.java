@@ -1,11 +1,15 @@
 package com.zhw.blog.util;
 
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import org.apache.commons.lang3.StringUtils;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
@@ -15,7 +19,6 @@ import java.io.*;
 public class ImageUtils {
 
     public static byte[] addText(File imageFile, String text) {
-
         try {
             BufferedImage baseImage = ImageIO.read(imageFile);
             int xPos = baseImage.getMinX();
@@ -24,7 +27,6 @@ public class ImageUtils {
             int height = baseImage.getHeight(null);
             BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
             Graphics2D g = image.createGraphics();
-
             //将图片背景设置为透明
             image = g.getDeviceConfiguration().createCompatibleImage(width, height, Transparency.TRANSLUCENT);
             g.dispose();
@@ -41,7 +43,6 @@ public class ImageUtils {
             g.drawString(text, (width - strWidth) / 2, 6 + strHeight / 2);
 //            g.drawString(text,width-10,height-5);
             g.dispose();
-
             ByteArrayOutputStream imageOut = new ByteArrayOutputStream();
             ImageIO.write(image, "PNG", imageOut);
             return imageOut.toByteArray();
@@ -49,7 +50,6 @@ public class ImageUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
@@ -140,5 +140,53 @@ public class ImageUtils {
         } else {
             return base64;
         }
+    }
+
+    /**
+     * 等比缩放图片
+     *
+     * @param imgSrc
+     * @param fileName
+     * @param width
+     * @param height
+     * @return
+     * @throws IOException
+     */
+    public static String zoomImage(InputStream is,String imgSrc, String fileName, float width, float height) throws IOException {
+        OutputStream os = null;
+        try {
+            String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
+            fileName = fileName.substring(0, fileName.lastIndexOf("."));
+            Image src = ImageIO.read(is);
+            float w = src.getWidth(null);
+            float h = src.getHeight(null);
+            if (width > 0 && height > 0 && w > 0 && h > 0) {
+                // 初始宽高均大于设定时进行缩放
+                if (width < w && height < h) {
+                    float percW = width / w;
+                    float percH = height / h;
+                    float trmp = percW < percH ? percW : percH;
+                    float prec = (float) (Math.round(trmp * 100)) / 100;
+                    fileName = prec >= 1 ? fileName : fileName + "_" + prec + "." + suffix;
+                    os = new FileOutputStream(imgSrc + "/" + fileName);
+                    w = w * prec;
+                    h = h * prec;
+                    BufferedImage bufferedImage = new BufferedImage((int) w, (int) h, BufferedImage.TYPE_INT_RGB);
+                    bufferedImage.getGraphics().drawImage(src.getScaledInstance((int) w, (int) h, Image.SCALE_SMOOTH), 0, 0, null);
+                    JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(os);
+                    encoder.encode(bufferedImage);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (is != null) {
+                is.close();
+            }
+            if (os != null) {
+                os.close();
+            }
+        }
+        return fileName;
     }
 }

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/css/common.css" media="all">
+    <link rel="stylesheet" href="/static/plug/layui/css/layui.css" media="all">
+</head>
+<body>
+<div class="layui-row innerbox">
+    <div class="layui-col-xs12" style="padding: 10px;text-align: right;position:fixed;background-color: white;z-index: 999;">
+        第<span id="pageIndex">1</span>页
+        <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" onclick="loadBefore()">上一页</button>
+        <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" onclick="loadNext()">下一页</button>
+    </div>
+    <div style="margin-top: 50px" id="img">
+    </div>
+</div>
+<!--模板-->
+<script id="imgTmpl" type="text/x-dot-template">
+    {{~it:item:index}}
+    <div class="layui-col-xs4" style="padding: 10px;text-align: center;">
+        <img src="https://cn.bing.com/{{=item.url}}" width="100%">
+        <a href="javascript:" style="background-color: white"
+           onclick="downloadImg('https://cn.bing.com{{=item.url}}')">【{{=item.startdate}}】{{=item.copyright}}</a>
+    </div>
+    {{~}}
+</script>
+<script src="/static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/plug/doT/doT.js"></script>
+<script src="/static/plug/layer/layer.js"></script>
+<script src="/static/plug/layui/layui.js" charset="utf-8"></script>
+<script src="/static/js/common.js"></script>
+<script src="bing.js"></script>
+</body>
+</html>

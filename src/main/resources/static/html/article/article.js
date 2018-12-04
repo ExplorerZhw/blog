@@ -7,7 +7,7 @@ $(function () {
         pasteImage: true,//允许粘贴图片
         // defaultImage: '/res/simditor/images/image.png',//编辑器插入的默认图片，此处可以删除
         upload: {
-            url: '/file/upload', //文件上传的接口地址
+            url: '/file/image/upload', //文件上传的接口地址
             params: null, //键值对,指定文件上传接口的额外参数,上传的时候随文件一起提交
             fileKey: 'articleImg', //服务器端获取文件数据的参数名
             connectionCount: 3,
